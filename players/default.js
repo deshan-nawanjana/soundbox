@@ -17,6 +17,7 @@ const sendMessage = (type, data) => (
   })
 )
 
+// event listener for messages
 window.addEventListener("message", event => {
   // get event message data
   const data = event.data
@@ -30,6 +31,9 @@ window.addEventListener("message", event => {
     resolvers[data.uuid](data.data)
     // delete promise resolver
     delete resolvers[data.uuid]
+  } else if (data.type === "update") {
+    // update time details
+    player.time = data.data.time
   }
 })
 
@@ -40,7 +44,7 @@ const styles = {
 }
 
 // player app
-new Vue({
+const player = new Vue({
   // root element
   el: "#app",
   // app data
@@ -49,6 +53,8 @@ new Vue({
     ready: false,
     // current source item
     current: null,
+    // current time details
+    time: { current: 0, duration: 0 },
     // audio sources
     sources: [],
     // styling helpers
@@ -75,6 +81,13 @@ new Vue({
       this.sources = data.sources
       // set first source as current
       this.current = data.sources[0]
+    },
+    // play current audio
+    async play(item) {
+      // set as current item
+      this.current = item
+      // play request for current source
+      await sendMessage("play", item)
     }
   },
   // mounted listener

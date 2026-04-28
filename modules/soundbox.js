@@ -55,6 +55,31 @@ const loadFile = url => (
   })
 )
 
+/** @type {Player | null} Currently active player */
+let currentPlayer = null
+
+/** @type {HTMLAudioElement} Audio element */
+const audio = document.createElement("audio")
+
+// method to update
+const update = () => {
+  // check if components ready
+  if (audio.duration && currentPlayer) {
+    // create update data object
+    const data = {
+      // current time and duration
+      time: { current: audio.currentTime, duration: audio.duration }
+    }
+    // send update object
+    sendMessage(currentPlayer, data, null, "update")
+  }
+  // request next frame
+  requestAnimationFrame(update)
+}
+
+// start update loop
+update()
+
 /**
  * Post messages into player window
  * @param {Player} player Player module
@@ -86,6 +111,13 @@ window.addEventListener("message", async event => {
   } else if (data.type === "load-file") {
     // submit loaded file
     sendMessage(player, await loadFile(data.data), data.uuid)
+  } else if (data.type === "play") {
+    // update current audio source fi changed
+    if (audio.src !== data.data.src) { audio.src = data.data.src }
+    // start audio
+    audio.play()
+    // set as currently active player
+    currentPlayer = player
   }
 })
 
