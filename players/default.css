@@ -1,0 +1,120 @@
+:root {
+  --screen-width: 100vw;
+  --screen-height: calc(100vh - calc(100vh - 100%));
+}
+
+@media (max-width: 420px) {
+  :root {
+    --unit: 2vw;
+    --spacing: 4vw;
+    --cover-size: 24vw;
+    --title-font-size: 6vw;
+    --artist-font-size: 4vw;
+  }
+}
+
+@media (min-width: 420px) {
+  :root {
+    --unit: 8px;
+    --spacing: 16px;
+    --cover-size: 96px;
+    --title-font-size: 24px;
+    --artist-font-size: 16px;
+  }
+}
+
+* {
+  font-family: "Inter";
+  user-select: none;
+}
+
+body {
+  margin: 0px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: var(--screen-width);
+  height: var(--screen-height);
+  background-color: #222;
+  left: 0px;
+  top: 0px;
+}
+
+#app {
+  display: none;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: var(--screen-width);
+  height: var(--screen-height);
+  transition: background 0.2s;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  left: 0px;
+  top: 0px;
+}
+
+#app[data-ready] {
+  display: flex;
+}
+
+.content {
+  width: inherit;
+  height: inherit;
+  backdrop-filter: blur(50px);
+  background-color: #fff3;
+  display: flex;
+  flex-direction: column;
+}
+
+.player {
+  gap: var(--spacing);
+  padding: var(--spacing);
+  display: flex;
+}
+
+.player-cover {
+  width: var(--cover-size);
+  height: var(--cover-size);
+  transition: background 0.2s;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0px 10px 20px #0004;
+  border-radius: 8%;
+  flex-shrink: 0;
+}
+
+.player-content {
+  flex-grow: 1;
+  width: calc(100% - var(--cover-size) - calc(var(--spacing) * 3));
+}
+
+.player-details {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 0.2);
+  text-shadow: 0px 0px calc(var(--unit) * 1) #0003;
+}
+
+.player-details div {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.player-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: var(--title-font-size);
+}
+
+.player-artist {
+  color: #eee;
+  font-size: var(--artist-font-size);
+}

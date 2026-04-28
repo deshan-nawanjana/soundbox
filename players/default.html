@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- preload : fonts -->
+  <link rel="preload" href="../assets/fonts/Inter-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="../assets/fonts/Inter-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <!-- fonts -->
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <!-- style -->
+  <link rel="stylesheet" href="./default.css">
+  <!-- libraries -->
+  <script src="../assets/libraries/vue.min.js"></script>
+  <!-- script -->
+  <script src="./default.js" type="module" defer></script>
+  <!-- page title -->
+  <title>SoundBox</title>
+</head>
+
+<body>
+  <!-- app root -->
+  <div id="app" :data-ready="ready" :style="styles.image(current?.cover)">
+    <div class="content">
+      <!-- player section -->
+      <div class="player" v-if="current">
+        <div class="player-cover" :style="styles.image(current.cover)"></div>
+        <div class="player-content">
+          <div class="player-details">
+            <div class="player-title">
+              {{current.title}}
+            </div>
+            <div class="player-artist">
+              {{current.artist}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
