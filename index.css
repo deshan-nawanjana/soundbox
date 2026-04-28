@@ -5,3 +5,9 @@
 .example-soundbox iframe {
   border-radius: 15px;
 }
+
+@media (max-width: 420px) {
+  .example-soundbox iframe {
+    border-radius: 4vw;
+  }
+}

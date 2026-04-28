@@ -128,10 +128,30 @@ const loadPlayers = () => {
     // push player to players
     players.push(player)
   }
+  // initial player resize
+  resizePlayers()
+}
+
+/** Resize all players to their inner content height */
+const resizePlayers = () => {
+  // for each player
+  for (let i = 0; i < players.length; i++) {
+    // current player
+    const player = players[i]
+    // get element width
+    const width = player.element.getBoundingClientRect().width
+    // calculate player height
+    const playerHeight = width < 420 ? width * 0.32 : 128
+    // set element height
+    player.element.style.height = playerHeight + "px"
+  }
 }
 
 // load all SoundBox players on page dom loaded
 window.addEventListener("DOMContentLoaded", loadPlayers)
+
+// resize all SoundBox players on page resize
+window.addEventListener("resize", resizePlayers)
 
 // export SoundBox modules
 export const SoundBox = { Player, players, loadPlayers }
