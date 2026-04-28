@@ -140,10 +140,15 @@ const resizePlayers = () => {
     const player = players[i]
     // get element width
     const width = player.element.getBoundingClientRect().width
-    // calculate player height
-    const playerHeight = width < 420 ? width * 0.32 : 128
-    // set element height
-    player.element.style.height = playerHeight + "px"
+    // calculate spacing
+    const spacing = width < 420 ? width * 0.04 : 16
+    // calculate player section height
+    const playerHeight = (width < 420 ? width * 0.24 : 96) + spacing * 2
+    // calculate tracks section height
+    const tracksHeight = player.options.sources.length < 2 ? 0
+      : (width < 420 ? width * 0.12 : 50) * player.options.sources.length + spacing
+    // set total soundbox height
+    player.element.style.height = (playerHeight + tracksHeight) + "px"
   }
 }
 
