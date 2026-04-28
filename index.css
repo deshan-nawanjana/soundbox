@@ -1,13 +1,24 @@
-.example-soundbox {
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #181818;
   overflow: hidden;
+  width: 100svw;
+  height: 100svh;
+  margin: 0px;
 }
 
-.example-soundbox iframe {
+.example-soundbox {
+  overflow: hidden;
+  width: calc(100svw - 28px);
+  max-width: 600px;
+  box-shadow: 0px 5px 30px #0006;
   border-radius: 15px;
 }
 
 @media (max-width: 420px) {
-  .example-soundbox iframe {
+  .example-soundbox {
     border-radius: 4vw;
   }
 }
