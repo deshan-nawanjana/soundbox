@@ -1,0 +1,7 @@
+.example-soundbox {
+  overflow: hidden;
+}
+
+.example-soundbox iframe {
+  border-radius: 15px;
+}
