@@ -61,14 +61,43 @@ let currentPlayer = null
 /** @type {HTMLAudioElement} Audio element */
 const audio = document.createElement("audio")
 
+// create audio context
+const context = new AudioContext()
+// create source node by audio element
+const source = context.createMediaElementSource(audio)
+// create audio analyser
+const analyser = context.createAnalyser()
+// set fft size
+analyser.fftSize = 32
+// half of fft size returns to visualizer
+const length = analyser.frequencyBinCount
+// create byte array from length
+const bytes = new Uint8Array(length)
+// connect analyser and context
+source.connect(analyser)
+analyser.connect(context.destination)
+
+// audio play listener
+audio.addEventListener("play", () => {
+  // check if context is suspended
+  if (context.state === 'suspended') {
+    // resume context
+    context.resume()
+  }
+})
+
 // method to update
 const update = () => {
   // check if components ready
   if (audio.duration && currentPlayer) {
+    // read frequency data from analyser
+    analyser.getByteFrequencyData(bytes)
     // create update data object
     const data = {
       // current time and duration
-      time: { current: audio.currentTime, duration: audio.duration }
+      time: { current: audio.currentTime, duration: audio.duration },
+      // visualizer bytes
+      bytes: bytes
     }
     // send update object
     sendMessage(currentPlayer, data, null, "update")
