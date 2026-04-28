@@ -38,6 +38,13 @@
               {{current.artist}}
             </div>
           </div>
+          <div class="player-controls">
+            <div class="player-seek" @click="seek">
+              <div class="player-seek-inner">
+                <div class="player-seek-value" :style="styles.seek(time)"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- tracks section -->
@@ -51,7 +58,6 @@
               {{item.artist}}
             </div>
           </div>
-
         </div>
       </div>
     </div>

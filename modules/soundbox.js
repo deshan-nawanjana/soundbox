@@ -147,6 +147,9 @@ window.addEventListener("message", async event => {
     audio.play()
     // set as currently active player
     currentPlayer = player
+  } else if (data.type === "seek" && player === currentPlayer) {
+    // set current time on audio
+    audio.currentTime = data.data
   }
 })
 

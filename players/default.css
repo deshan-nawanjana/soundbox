@@ -94,6 +94,9 @@ body {
 .player-content {
   flex-grow: 1;
   width: calc(100% - var(--cover-size) - calc(var(--spacing) * 3));
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--unit) * 2.5);
 }
 
 .player-details {
@@ -119,6 +122,36 @@ body {
 .player-artist {
   color: #eee;
   font-size: var(--artist-font-size);
+}
+
+.player-seek {
+  width: 100%;
+  height: calc(var(--unit) * 2);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.player-seek-inner {
+  width: 100%;
+  touch-action: none;
+  pointer-events: none;
+  height: calc(var(--unit) * 0.5);
+  transition-property: height;
+  transition-duration: 0.15s;
+  background-color: #fff2;
+  border-radius: calc(var(--unit) * 0.5);
+  overflow: hidden;
+}
+
+.player-seek:hover .player-seek-inner {
+  height: calc(var(--unit) * 1.2);
+}
+
+.player-seek-value {
+  background-color: #fffa;
+  height: inherit;
+  width: 0%;
 }
 
 .tracks {

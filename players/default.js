@@ -39,8 +39,10 @@ window.addEventListener("message", event => {
 
 /** Styling helpers */
 const styles = {
-  /** Create background image rule */
-  image: url => ({ "background-image": url ? `url(${url})` : null })
+  /** Creates background image rule */
+  image: url => ({ "background-image": url ? `url(${url})` : null }),
+  /** Creates width rule for seek value */
+  seek: time => ({ "width": `${(100 * time.current / time.duration).toFixed(4)}%` })
 }
 
 // player app
@@ -88,6 +90,17 @@ const player = new Vue({
       this.current = item
       // play request for current source
       await sendMessage("play", item)
+    },
+    // seek audio
+    async seek(event) {
+      // return if no duration
+      if (!this.time.duration) { return }
+      // get seek bar width
+      const width = event.target.getBoundingClientRect().width
+      // calculate time factor
+      const factor = event.offsetX / width
+      // seek request for current source
+      await sendMessage("seek", this.time.duration * factor)
     }
   },
   // mounted listener
