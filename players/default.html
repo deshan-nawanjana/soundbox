@@ -38,6 +38,20 @@
           </div>
         </div>
       </div>
+      <!-- tracks section -->
+      <div class="tracks" v-if="sources.length > 1">
+        <div class="track" v-for="item in sources" @click="current = item" :data-active="current === item">
+          <div class="track-details">
+            <div class="track-title">
+              {{item.title}}
+            </div>
+            <div class="track-artist">
+              {{item.artist}}
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 </body>

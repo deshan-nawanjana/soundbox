@@ -10,6 +10,7 @@
     --cover-size: 24vw;
     --title-font-size: 6vw;
     --artist-font-size: 4vw;
+    --track-height: 12vw;
   }
 }
 
@@ -20,6 +21,7 @@
     --cover-size: 96px;
     --title-font-size: 24px;
     --artist-font-size: 16px;
+    --track-height: 50px;
   }
 }
 
@@ -117,4 +119,49 @@ body {
 .player-artist {
   color: #eee;
   font-size: var(--artist-font-size);
+}
+
+.tracks {
+  display: flex;
+  flex-direction: column;
+  margin: 0px var(--spacing) var(--spacing) var(--spacing);
+  background-color: #0004;
+  border-radius: var(--unit);
+  overflow: hidden;
+}
+
+.track {
+  height: var(--track-height);
+  transition: background-color 0.15s;
+  display: flex;
+  cursor: pointer;
+}
+
+.track:hover {
+  background-color: #0002;
+}
+
+.track[data-active] {
+  background-color: #0003;
+}
+
+.track:not(:last-child) {
+  box-shadow: 0px 0.5px 0px 0px #0002;
+}
+
+.track-details {
+  display: flex;
+  flex-direction: column;
+  padding: var(--unit);
+  gap: calc(var(--unit) * 0.5);
+}
+
+.track-title {
+  font-size: calc(var(--unit) * 1.8);
+  color: #fffe;
+}
+
+.track-artist {
+  font-size: calc(var(--unit) * 1.4);
+  color: #fff8;
 }
