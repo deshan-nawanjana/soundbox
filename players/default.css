@@ -28,6 +28,7 @@
 
 * {
   font-family: "Inter";
+  -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
 
@@ -134,6 +135,7 @@ body {
   height: var(--toggle-size);
   transition-property: transform, opacity;
   transition-duration: 0.15s;
+  border-radius: var(--toggle-size);
   border: none;
   right: 0px;
   top: 0px;
