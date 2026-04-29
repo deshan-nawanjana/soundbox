@@ -1,5 +1,5 @@
-// get url search params
-const params = new URLSearchParams(location.search)
+// get url hash params
+const params = new URLSearchParams(location.hash.replace("#", ""))
 
 /** @type {string} Player id */
 const id = params.get("id")

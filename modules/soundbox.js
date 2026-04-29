@@ -24,7 +24,7 @@ class Player {
     this.element.style.display = "inline-block"
     this.element.style.margin = "0px"
     // set iframe src to load
-    this.element.src = options.url + "?" + new URLSearchParams({
+    this.element.src = options.url + "#" + new URLSearchParams({
       id: this.id, index: options.index ?? 0
     }).toString()
   }
