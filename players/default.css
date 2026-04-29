@@ -97,6 +97,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: calc(var(--unit) * 2.5);
+  position: relative;
 }
 
 .player-details {
@@ -122,6 +123,32 @@ body {
 .player-artist {
   color: #eee;
   font-size: var(--artist-font-size);
+}
+
+.player-toggle {
+  position: absolute;
+  background-image: url(../assets/images/interface/play.svg), url(../assets/images/interface/pause.svg);
+  background-color: transparent;
+  width: calc(var(--unit) * 5);
+  height: calc(var(--unit) * 5);
+  transition-property: transform, opacity;
+  transition-duration: 0.15s;
+  border: none;
+  right: 0px;
+  top: 0px;
+}
+
+.player-toggle:active {
+  transform: scale(0.94);
+  opacity: 0.75;
+}
+
+.player-toggle:not([data-playing]) {
+  background-size: 100%, 0px;
+}
+
+.player-toggle[data-playing] {
+  background-size: 0px, 100%;
 }
 
 .player-seek {

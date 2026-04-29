@@ -141,10 +141,20 @@ window.addEventListener("message", async event => {
     // submit loaded file
     sendMessage(player, await loadFile(data.data), data.uuid)
   } else if (data.type === "play") {
-    // update current audio source fi changed
-    if (audio.src !== data.data.src) { audio.src = data.data.src }
+    // check for source or player change
+    if (audio.source !== data.data.src || player !== currentPlayer) {
+      // store source url
+      audio.source = data.data.src
+      // update audio source
+      audio.src = data.data.src
+    }
     // start audio
     audio.play()
+    // set as currently active player
+    currentPlayer = player
+  } else if (data.type === "pause" && player === currentPlayer) {
+    // pause audio
+    audio.pause()
     // set as currently active player
     currentPlayer = player
   } else if (data.type === "seek" && player === currentPlayer) {

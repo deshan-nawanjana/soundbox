@@ -10,6 +10,9 @@
   <!-- preload : fonts -->
   <link rel="preload" href="../assets/fonts/Inter-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="../assets/fonts/Inter-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <!-- preload : images -->
+  <link rel="preload" href="../assets/images/interface/play.svg" as="image" type="image/svg+xml">
+  <link rel="preload" href="../assets/images/interface/pause.svg" as="image" type="image/svg+xml">
   <!-- fonts -->
   <link rel="stylesheet" href="../assets/fonts/fonts.css">
   <!-- style -->
@@ -45,6 +48,7 @@
               </div>
             </div>
           </div>
+          <button class="player-toggle" @click="toggle" :data-playing="playing"></button>
         </div>
       </div>
       <!-- tracks section -->

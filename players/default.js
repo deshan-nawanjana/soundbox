@@ -55,6 +55,8 @@ const player = new Vue({
     ready: false,
     // current source item
     current: null,
+    // playing status
+    playing: false,
     // current time details
     time: { current: 0, duration: 0 },
     // audio sources
@@ -85,14 +87,25 @@ const player = new Vue({
       this.current = data.sources[0]
     },
     // play current audio
-    async play(item) {
+    play(item) {
       // set as current item
       this.current = item
       // play request for current source
-      await sendMessage("play", item)
+      sendMessage("play", item)
+      // set as playing
+      this.playing = true
+    },
+    // toggle play state
+    toggle() {
+      // get request type by playing state
+      const type = this.playing ? "pause" : "play"
+      // request for current source
+      sendMessage(type, this.current)
+      // toggle playing state
+      this.playing = !this.playing
     },
     // seek audio
-    async seek(event) {
+    seek(event) {
       // return if no duration
       if (!this.time.duration) { return }
       // get seek bar width
@@ -100,7 +113,7 @@ const player = new Vue({
       // calculate time factor
       const factor = event.offsetX / width
       // seek request for current source
-      await sendMessage("seek", this.time.duration * factor)
+      sendMessage("seek", this.time.duration * factor)
     }
   },
   // mounted listener
