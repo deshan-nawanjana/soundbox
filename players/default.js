@@ -1,5 +1,8 @@
+// get url search params
+const params = new URLSearchParams(location.search)
+
 /** @type {string} Player id */
-const id = new URLSearchParams(location.search).get("id")
+const id = params.get("id")
 
 /** @type {Object.<string, any} Pending promise resolvers */
 const resolvers = {}
@@ -80,7 +83,7 @@ const player = new Vue({
         // continue if no cover
         if (!source.cover) { continue }
         // request cover image blob
-        const blob = await sendMessage("load-file", source.cover)
+        const blob = await sendMessage("cache", source.cover)
         // replace cover with blob url
         source.cover = blob ? URL.createObjectURL(blob) : null
       }
@@ -88,6 +91,8 @@ const player = new Vue({
       this.sources = data.sources
       // set first source as current
       this.current = data.sources[0]
+      // request to load media for first player
+      if (params.get("index") === "0") { sendMessage("load", this.current) }
     },
     // play current audio
     play(item) {

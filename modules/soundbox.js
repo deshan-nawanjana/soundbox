@@ -2,7 +2,7 @@
 const url = import.meta.url.replace("/modules/soundbox.js", "/players/default.html")
 
 /** @typedef {{ src: string, title: string, artist?: string, cover?: string, captions?: string }} Source Sound source */
-/** @typedef {{ url: string, sources: Source[] }} Options Player options */
+/** @typedef {{ url: string, sources: Source[], index: number }} Options Player options */
 
 /** SoundBox Player */
 class Player {
@@ -24,7 +24,9 @@ class Player {
     this.element.style.display = "inline-block"
     this.element.style.margin = "0px"
     // set iframe src to load
-    this.element.src = options.url + "?id=" + this.id
+    this.element.src = options.url + "?" + new URLSearchParams({
+      id: this.id, index: options.index ?? 0
+    }).toString()
   }
 }
 
@@ -137,9 +139,18 @@ window.addEventListener("message", async event => {
   if (data.type === "init") {
     // submit player option
     sendMessage(player, player.options, data.uuid)
-  } else if (data.type === "load-file") {
+  } else if (data.type === "cache") {
     // submit loaded file
     sendMessage(player, await loadFile(data.data), data.uuid)
+  } else if (data.type === "load") {
+    // return if any current player
+    if (currentPlayer) { return }
+    // set as current player
+    currentPlayer = player
+    // store source url
+    audio.source = data.data.src
+    // update audio source
+    audio.src = data.data.src
   } else if (data.type === "play") {
     // check for source or player change
     if (audio.source !== data.data.src || player !== currentPlayer) {
@@ -201,7 +212,7 @@ const loadPlayers = () => {
     // continue if no sources
     if (sources.length === 0) { continue }
     // create soundbox player
-    const player = new Player({ url, sources })
+    const player = new Player({ url, sources, index: i })
     // clear sandbox child element
     element.innerHTML = ""
     // append player frame
