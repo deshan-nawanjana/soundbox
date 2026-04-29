@@ -1,6 +1,7 @@
 :root {
   --screen-width: 100vw;
   --screen-height: calc(100vh - calc(100vh - 100%));
+  --toggle-size: calc(var(--unit) * 5);
 }
 
 @media (max-width: 420px) {
@@ -108,7 +109,7 @@ body {
 }
 
 .player-details div {
-  width: 100%;
+  width: calc(100% - var(--toggle-size) - var(--unit));
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -129,8 +130,8 @@ body {
   position: absolute;
   background-image: url(../assets/images/interface/play.svg), url(../assets/images/interface/pause.svg);
   background-color: transparent;
-  width: calc(var(--unit) * 5);
-  height: calc(var(--unit) * 5);
+  width: var(--toggle-size);
+  height: var(--toggle-size);
   transition-property: transform, opacity;
   transition-duration: 0.15s;
   border: none;
@@ -214,6 +215,14 @@ body {
   flex-direction: column;
   padding: var(--unit);
   gap: calc(var(--unit) * 0.5);
+  width: 100%;
+}
+
+.track-details div {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: calc(100% - 20px);
 }
 
 .track-title {
