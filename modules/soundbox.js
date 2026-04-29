@@ -147,6 +147,13 @@ window.addEventListener("message", async event => {
       audio.source = data.data.src
       // update audio source
       audio.src = data.data.src
+      // for each player
+      for (let i = 0; i < players.length; i++) {
+        // player by index
+        const item = players[i]
+        // submit pause if not current player
+        if (item !== player) { sendMessage(item, null, null, "pause") }
+      }
     }
     // start audio
     audio.play()

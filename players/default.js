@@ -34,6 +34,9 @@ window.addEventListener("message", event => {
   } else if (data.type === "update") {
     // update time details
     player.time = data.data.time
+  } else if (data.type === "pause") {
+    // update playing state
+    player.playing = false
   }
 })
 
