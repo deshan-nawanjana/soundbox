@@ -2,7 +2,7 @@
 const url = import.meta.url.replace("/modules/soundbox.js", "/players/default.html")
 
 /** @typedef {{ src: string, title: string, artist?: string, cover?: string, captions?: string }} Source Sound source */
-/** @typedef {{ url: string, sources: Source[], index: number }} Options Player options */
+/** @typedef {{ url: string, sources: Source[], preload: boolean }} Options Player options */
 
 /** SoundBox Player */
 class Player {
@@ -25,7 +25,7 @@ class Player {
     this.element.style.margin = "0px"
     // set iframe src to load
     this.element.src = options.url + "#" + new URLSearchParams({
-      id: this.id, index: options.index ?? 0
+      id: this.id, preload: options.preload
     }).toString()
   }
 }
@@ -214,7 +214,7 @@ const loadPlayers = () => {
     // continue if no sources
     if (sources.length === 0) { continue }
     // create soundbox player
-    const player = new Player({ url, sources, index: i })
+    const player = new Player({ url, sources, preload: element.hasAttribute("preload") })
     // clear sandbox child element
     element.innerHTML = ""
     // append player frame

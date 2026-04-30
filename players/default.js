@@ -92,7 +92,7 @@ const player = new Vue({
       // set first source as current
       this.current = data.sources[0]
       // request to load media for first player
-      if (params.get("index") === "0") { sendMessage("load", this.current) }
+      if (params.get("preload") === "true") { sendMessage("load", this.current) }
     },
     // play current audio
     play(item) {
