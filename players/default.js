@@ -64,7 +64,7 @@ const player = new Vue({
     // playing status
     playing: false,
     // current time details
-    time: { current: 0, duration: 0 },
+    time: null,
     // audio sources
     sources: [],
     // styling helpers

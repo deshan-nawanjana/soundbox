@@ -30,6 +30,7 @@
   font-family: "Inter";
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  outline: none;
 }
 
 body {

@@ -41,7 +41,7 @@
               {{current.artist}}
             </div>
           </div>
-          <div class="player-controls">
+          <div class="player-controls" v-if="time">
             <div class="player-seek" @click="seek">
               <div class="player-seek-inner">
                 <div class="player-seek-value" :style="styles.seek(time)"></div>
