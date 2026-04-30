@@ -149,6 +149,17 @@ const player = new Vue({
   async mounted() {
     // initiate app
     await this.init()
+    // keyboard event listener
+    window.addEventListener("keyup", event => {
+      // toggle play state for space key
+      if (event.key === " ") { this.toggle() }
+      // return if no time details
+      if (!this.time) { return }
+      // seek forward for arrow right key
+      if (event.key === "ArrowRight") { sendMessage("seek", this.time.current + 10) }
+      // seek backward for arrow left key
+      if (event.key === "ArrowLeft") { sendMessage("seek", this.time.current - 10) }
+    })
     // set as ready
     this.ready = true
   }
