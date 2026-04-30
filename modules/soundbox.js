@@ -166,6 +166,8 @@ window.addEventListener("message", async event => {
         if (item !== player) { sendMessage(item, null, null, "pause") }
       }
     }
+    // set current time if given with request
+    if (typeof data.data.time === "number") { audio.currentTime = data.data.time }
     // start audio
     audio.play()
     // set as currently active player

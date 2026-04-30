@@ -108,7 +108,7 @@ const player = new Vue({
       // get request type by playing state
       const type = this.playing ? "pause" : "play"
       // request for current source
-      sendMessage(type, this.current)
+      sendMessage(type, { ...this.current, time: this.time?.current })
       // toggle playing state
       this.playing = !this.playing
     },
@@ -120,8 +120,12 @@ const player = new Vue({
       const width = event.target.getBoundingClientRect().width
       // calculate time factor
       const factor = event.offsetX / width
+      // calculate required time
+      const time = this.time.duration * factor
+      // set current time manually
+      this.time.current = time
       // seek request for current source
-      sendMessage("seek", this.time.duration * factor)
+      sendMessage("seek", time)
     }
   },
   // mounted listener
