@@ -40,6 +40,9 @@ window.addEventListener("message", event => {
   } else if (data.type === "pause") {
     // update playing state
     player.playing = false
+  } else if (data.type === "next") {
+    // play next item
+    player.next()
   }
 })
 
@@ -119,6 +122,27 @@ const player = new Vue({
       sendMessage("play", item)
       // set as playing
       this.playing = true
+    },
+    // play next audio
+    next() {
+      // get current item index
+      const index = this.sources.indexOf(this.current)
+      // get next item by index
+      const item = this.sources[index + 1]
+      // check if any item available
+      if (item) {
+        // set as current item
+        this.current = item
+        // play request for current source
+        sendMessage("play", item)
+        // set as playing
+        this.playing = true
+      } else {
+        // seek to beginning
+        sendMessage("seek", 0)
+        // set as paused
+        this.playing = false
+      }
     },
     // toggle play state
     toggle() {

@@ -88,6 +88,16 @@ audio.addEventListener("play", () => {
   }
 })
 
+// audio pause listener
+audio.addEventListener("pause", () => {
+  // return if no current player
+  if (!currentPlayer) { return }
+  // return if not ended
+  if (audio.currentTime < audio.duration) { return }
+  // play next track
+  sendMessage(currentPlayer, null, null, "next")
+})
+
 // method to update
 const update = () => {
   // check if components ready
