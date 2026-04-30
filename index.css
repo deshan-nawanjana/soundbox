@@ -2,11 +2,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   background-color: #181818;
   overflow: hidden;
   width: 100svw;
   height: 100svh;
   margin: 0px;
+  gap: 20px;
 }
 
 .example-soundbox {
