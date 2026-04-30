@@ -51,6 +51,21 @@ const styles = {
   seek: time => ({ "width": `${(100 * time.current / time.duration).toFixed(4)}%` })
 }
 
+/** Calculation helpers */
+const calcs = {
+  /** Creates time display string */
+  time: input => {
+    // extract value for each unit
+    const minutes = Math.floor(input / 60)
+    const seconds = Math.round(input % 60)
+    // add leading zeros
+    const mm = String(minutes).padStart(2, '0')
+    const ss = String(seconds).padStart(2, '0')
+    // return tim in mm:ss format
+    return `${mm}:${ss}`;
+  }
+}
+
 // player app
 const player = new Vue({
   // root element
@@ -68,7 +83,9 @@ const player = new Vue({
     // audio sources
     sources: [],
     // styling helpers
-    styles
+    styles,
+    // calculation helpers
+    calcs
   },
   // app methods
   methods: {

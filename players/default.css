@@ -99,7 +99,7 @@ body {
   width: calc(100% - var(--cover-size) - calc(var(--spacing) * 3));
   display: flex;
   flex-direction: column;
-  gap: calc(var(--unit) * 2.5);
+  gap: calc(var(--unit) * 0.2);
   position: relative;
 }
 
@@ -158,6 +158,7 @@ body {
 .player-seek {
   width: 100%;
   height: calc(var(--unit) * 2);
+  margin-top: calc(var(--unit) * 0.8);
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -183,6 +184,16 @@ body {
   background-color: #fffa;
   height: inherit;
   width: 0%;
+}
+
+.player-time {
+  display: flex;
+  font-size: calc(var(--unit) * 1.6);
+  color: #fffa;
+}
+
+.player-time-current {
+  flex-grow: 1;
 }
 
 .tracks {
