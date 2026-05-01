@@ -2,7 +2,7 @@
 const url = import.meta.url.replace("/modules/soundbox.js", "/players/default.html")
 
 /** @typedef {{ src: string, title: string, artist?: string, cover?: string, captions?: string }} Source Sound source */
-/** @typedef {{ url: string, sources: Source[], preload: boolean }} Options Player options */
+/** @typedef {{ url: string, sources: Source[], visualizer: boolean, preload: boolean }} Options Player options */
 
 /** SoundBox Player */
 class Player {
@@ -25,7 +25,7 @@ class Player {
     this.element.style.margin = "0px"
     // set iframe src to load
     this.element.src = options.url + "#" + new URLSearchParams({
-      id: this.id, preload: options.preload
+      id: this.id, visualizer: options.visualizer, preload: options.preload
     }).toString()
   }
 }
@@ -70,7 +70,9 @@ const source = context.createMediaElementSource(audio)
 // create audio analyser
 const analyser = context.createAnalyser()
 // set fft size
-analyser.fftSize = 32
+analyser.fftSize = 128
+// add smoothing
+analyser.smoothingTimeConstant = 0.6
 // half of fft size returns to visualizer
 const length = analyser.frequencyBinCount
 // create byte array from length
@@ -102,14 +104,17 @@ audio.addEventListener("pause", () => {
 const update = () => {
   // check if components ready
   if (audio.duration && currentPlayer) {
-    // read frequency data from analyser
-    analyser.getByteFrequencyData(bytes)
+    // check for visualizer option
+    if (currentPlayer.options.visualizer) {
+      // read frequency data from analyser
+      analyser.getByteFrequencyData(bytes)
+    }
     // create update data object
     const data = {
       // current time and duration
       time: { current: audio.currentTime, duration: audio.duration },
       // visualizer bytes
-      bytes: bytes
+      bytes: currentPlayer.options.visualizer ? bytes : null
     }
     // send update object
     sendMessage(currentPlayer, data, null, "update")
@@ -224,7 +229,11 @@ const loadPlayers = () => {
     // continue if no sources
     if (sources.length === 0) { continue }
     // create soundbox player
-    const player = new Player({ url, sources, preload: element.hasAttribute("preload") })
+    const player = new Player({
+      url, sources,
+      visualizer: element.hasAttribute("visualizer"),
+      preload: element.hasAttribute("preload")
+    })
     // clear sandbox child element
     element.innerHTML = ""
     // append player frame

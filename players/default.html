@@ -28,8 +28,9 @@
 <body>
   <!-- app root -->
   <div id="app" :data-ready="ready" :style="styles.image(current?.cover)">
+    <!-- backdrop -->
     <div class="content">
-      <!-- player section -->
+      <!-- player -->
       <div class="player" v-if="current">
         <div class="player-cover" :style="styles.image(current.cover)"></div>
         <div class="player-content">
@@ -54,10 +55,10 @@
               {{calcs.time(time.duration)}}
             </div>
           </div>
-          <button class="player-toggle" @click="toggle" :data-playing="playing"></button>
+          <div class="player-toggle" @click="toggle" :data-playing="playing"></div>
         </div>
       </div>
-      <!-- tracks section -->
+      <!-- tracks -->
       <div class="tracks" v-if="sources.length > 1">
         <div class="track" v-for="item in sources" @click="play(item)" :data-active="current === item">
           <div class="track-details">
@@ -69,6 +70,10 @@
             </div>
           </div>
         </div>
+      </div>
+      <!-- visualizer -->
+      <div class="visualizer" v-if="visualizer">
+        <div class="visualizer-bar" v-for="byte in visualizer" :style="styles.bar(byte)"></div>
       </div>
     </div>
   </div>

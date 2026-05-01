@@ -4,9 +4,27 @@ const params = new URLSearchParams(location.hash.replace("#", ""))
 /** @type {string} Player id */
 const id = params.get("id")
 
+// visualizer state
+const isVisualizer = params.get("visualizer") === "true"
+
+/** Rearranges visualizer bytes */
+function mountainVisualizer(data) {
+  // create bytes array
+  const result = new Uint8Array(64)
+  // for each item until middle point
+  for (let i = 0; i < 32; i++) {
+    // set bytes on both sides
+    result[32 - i - 1] = data[i]
+    result[32 + i] = data[i]
+  }
+  // return rearranged values
+  return result
+}
+
 /** @type {Object.<string, any} Pending promise resolvers */
 const resolvers = {}
 
+// send messages to parent window
 const sendMessage = (type, data) => (
   new Promise(resolve => {
     // create message id
@@ -37,6 +55,10 @@ window.addEventListener("message", event => {
   } else if (data.type === "update") {
     // update time details
     player.time = data.data.time
+    // return if no visualizer
+    if (!isVisualizer) { return }
+    // update visualizer data
+    player.visualizer = mountainVisualizer(data.data.bytes)
   } else if (data.type === "pause") {
     // update playing state
     player.playing = false
@@ -51,7 +73,9 @@ const styles = {
   /** Creates background image rule */
   image: url => ({ "background-image": url ? `url(${url})` : null }),
   /** Creates width rule for seek value */
-  seek: time => ({ "width": `${(100 * time.current / time.duration).toFixed(4)}%` })
+  seek: time => ({ "width": `${(100 * time.current / time.duration).toFixed(4)}%` }),
+  /** Creates visualizer bar height */
+  bar: value => ({ "height": `${(100 * value / 255).toFixed(4)}%` })
 }
 
 /** Calculation helpers */
@@ -85,6 +109,8 @@ const player = new Vue({
     time: null,
     // audio sources
     sources: [],
+    // visualizer data
+    visualizer: null,
     // styling helpers
     styles,
     // calculation helpers
