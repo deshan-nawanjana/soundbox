@@ -72,7 +72,7 @@
         </div>
       </div>
       <!-- visualizer -->
-      <div class="visualizer" v-if="visualizer">
+      <div class="visualizer" v-if="visualizer" :data-tracks="sources.length > 1">
         <div class="visualizer-bar" v-for="byte in visualizer" :style="styles.bar(byte)"></div>
       </div>
     </div>

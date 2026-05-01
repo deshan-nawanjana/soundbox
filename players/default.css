@@ -264,6 +264,10 @@ body {
   touch-action: none;
 }
 
+.visualizer[data-tracks] {
+  height: calc(var(--unit) * 5);
+}
+
 .visualizer-bar {
   width: 100%;
   background-color: #fff3;
