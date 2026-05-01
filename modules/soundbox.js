@@ -137,7 +137,7 @@ const sendMessage = (player, data, uuid, type) => {
   // post message to window with identifiers
   player.element.contentWindow.postMessage({
     id: player.id, data, type, uuid, soundbox: true
-  })
+  }, "*")
 }
 
 // incoming messages listener

@@ -34,7 +34,7 @@ const sendMessage = (type, data) => (
     // submit message to parent window
     window.parent.postMessage({
       type, data, uuid, id, soundbox: true
-    })
+    }, "*")
   })
 )
 
