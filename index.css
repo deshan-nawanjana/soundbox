@@ -4,23 +4,134 @@ body {
   justify-content: center;
   flex-direction: column;
   background-color: #181818;
-  overflow: hidden;
-  width: 100svw;
-  height: 100svh;
-  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
   gap: 20px;
 }
 
-.example-soundbox {
+.header {
+  padding: 40px 20px 20px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter";
+  gap: 10px;
+}
+
+.header-title {
+  font-size: 40px;
+  color: #fffa;
+  font-weight: 700;
+}
+
+.header-description {
+  font-size: 16px;
+  font-style: italic;
+  color: #fff6;
+}
+
+.preview {
+  display: flex;
+  margin-bottom: 10px;
+  gap: 20px;
+}
+
+soundbox {
   overflow: hidden;
   width: calc(100svw - 28px);
-  max-width: 600px;
+  max-width: 448px;
   box-shadow: 0px 5px 30px #0006;
-  border-radius: 15px;
+  border-radius: var(--radius);
+}
+
+.snippet {
+  margin: 0px;
+  padding: 24px;
+  background-color: #fff1;
+  border-radius: var(--radius);
+  box-shadow: 0px 5px 30px #0006;
+  max-width: 400px;
+  overflow-x: auto;
+}
+
+.snippet * {
+  font-family: "FiraCode";
+  font-size: 16px;
+}
+
+.snippet::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.snippet::-webkit-scrollbar-thumb {
+  background-color: #fff3;
+}
+
+.snippet::selection {
+  background-color: #fff1;
+}
+
+.module::selection {
+  background-color: #fff3;
+}
+
+.module {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+  padding: 12px 14px;
+  background-color: #fff1;
+  border: 1px solid #fff2;
+  border-radius: 10px;
+  max-width: calc(100svw - 50px);
+  line-break: anywhere;
+}
+
+.preview {
+  --radius: 15px;
 }
 
 @media (max-width: 420px) {
-  .example-soundbox {
-    border-radius: 4vw;
+  .preview {
+    --radius: 4vw;
+  }
+}
+
+@media (max-width: 1028px) {
+  .preview {
+    flex-direction: column;
+  }
+
+  .snippet {
+    padding: 15px;
+    width: calc(100svw - 60px);
+    max-width: 420px;
+  }
+
+  .snippet * {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1000px) and (min-height: 600px) {
+  body {
+    width: 100svw;
+    height: 100svh;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+    overflow: hidden;
+  }
+
+  .header {
+    padding: 0px 0px 20px 0px;
+  }
+
+  .module {
+    margin-bottom: 0px;
   }
 }

@@ -7,46 +7,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- favicon -->
   <link rel="shortcut icon" href="./assets/images/logo.png" type="image/png">
+  <!-- preload : fonts -->
+  <link rel="preload" href="./assets/fonts/Inter/Inter-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="./assets/fonts/Inter/Inter-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="./assets/fonts/FiraCode/FiraCode-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <!-- fonts -->
+  <link rel="stylesheet" href="./assets/fonts/fonts.css">
   <!-- style -->
   <link rel="stylesheet" href="./index.css">
+  <!-- libraries -->
+  <link rel="stylesheet" href="./assets/libraries/prism.min.css">
+  <script src="./assets/libraries/prism.min.js"></script>
   <!-- import module -->
   <script src="./modules/soundbox.js" type="module"></script>
+  <!-- script -->
+  <script src="./index.js" type="module" defer></script>
   <!-- page title -->
   <title>SoundBox - Embeddable Audio Player for Modern Websites</title>
 </head>
 
 <body>
-  <!-- soundbox -->
-  <soundbox visualizer preload class="example-soundbox">
-    <!-- https://pixabay.com/music/upbeat-fun-upbeat-background-music-366059/ -->
-    <source
-      title="Upbeat"
-      artist="Viacheslav Starostin"
-      cover="./assets/music/upbeat.jpg"
-      src="./assets/music/upbeat.mp3"
-    />
-    <!-- https://pixabay.com/music/electronic-pop-music-478803/ -->
-    <source
-      title="Electronic"
-      artist="AlexGrohl"
-      cover="./assets/music/electronic.jpg"
-      src="./assets/music/electronic.mp3"
-    />
-    <!-- https://pixabay.com/music/happy-childrens-tunes-motivation-474064/ -->
-    <source
-      title="Motivation"
-      artist="Eliveta"
-      cover="./assets/music/motivation.jpg"
-      src="./assets/music/motivation.mp3"
-    />
-    <!-- https://pixabay.com/music/techno-trance-chill-uk-garage-488026/ -->
-    <source
-      title="Chill"
-      artist="Giorgio Vitté"
-      cover="./assets/music/chill.jpg"
-      src="./assets/music/chill.mp3"
-    />
-  </soundbox>
+  <!-- header -->
+  <div class="header">
+    <div class="header-title">
+      SoundBox
+    </div>
+    <div class="header-description">
+      Embeddable Audio Player for Modern Websites
+    </div>
+  </div>
+  <!-- preview -->
+  <div class="preview">
+    <!-- soundbox -->
+    <soundbox visualizer preload>
+      <!-- https://pixabay.com/music/upbeat-fun-upbeat-background-music-366059/ -->
+      <source
+        title="Upbeat"
+        artist="Viacheslav Starostin"
+        cover="./assets/music/upbeat.jpg"
+        src="./assets/music/upbeat.mp3"
+      />
+      <!-- https://pixabay.com/music/electronic-pop-music-478803/ -->
+      <source
+        title="Electronic"
+        artist="AlexGrohl"
+        cover="./assets/music/electronic.jpg"
+        src="./assets/music/electronic.mp3"
+      />
+      <!-- https://pixabay.com/music/happy-childrens-tunes-motivation-474064/ -->
+      <source
+        title="Motivation"
+        artist="Eliveta"
+        cover="./assets/music/motivation.jpg"
+        src="./assets/music/motivation.mp3"
+      />
+      <!-- https://pixabay.com/music/techno-trance-chill-uk-garage-488026/ -->
+      <source
+        title="Chill"
+        artist="Giorgio Vitté"
+        cover="./assets/music/chill.jpg"
+        src="./assets/music/chill.mp3"
+      />
+    </soundbox>
+    <!-- snippet -->
+    <pre class="snippet" data-code>&lt;soundbox visualizer preload&gt;
+  &lt;source
+    title="Upbeat"
+    artist="Viacheslav Starostin"
+    cover="./assets/upbeat.jpg"
+    src="./assets/upbeat.mp3"
+  /&gt;
+  &lt;source
+    title="Electronic"
+    artist="AlexGrohl"
+    cover="./assets/electronic.jpg"
+    src="./assets/electronic.mp3"
+  /&gt;
+&lt;/soundbox&gt;</pre>
+  </div>
+  <!-- module -->
+  <code class="module" data-code>
+    &lt;script src="https://deshan-nawanjana.github.io/soundbox/modules/soundbox.js" type="module"&gt;&lt;/script&gt;
+  </code>
 </body>
 
 </html>
